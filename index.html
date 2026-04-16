@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Icons of the Past</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #008080;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      cursor: default;
+      user-select: none;
+    }
+
+    /* ── BOOT ── */
+    .boot {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      cursor: pointer;
+    }
+    .boot h1 {
+      color: #c0c0c0;
+      font-size: 14px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+    .boot .sub {
+      color: #555;
+      font-size: 10px;
+      letter-spacing: 4px;
+      margin-bottom: 36px;
+    }
+    .boot-bar-wrap {
+      width: 260px;
+      height: 18px;
+      border: 1px solid #444;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .boot-bar {
+      height: 100%;
+      width: 0;
+      background: #000080;
+      animation: load 2.4s ease forwards;
+    }
+    @keyframes load { to { width: 100%; } }
+    .boot-click {
+      color: #333;
+      font-size: 9px;
+      letter-spacing: 4px;
+      animation: blink 1.6s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:.2} 50%{opacity:.8} }
+
+    /* ── DESKTOP ── */
+    .desktop {
+      width: 100%;
+      height: calc(100vh - 28px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── ICONS ── */
+    .icon {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80px;
+      padding: 4px;
+      cursor: pointer;
+    }
+    .icon-img-wrap {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon:hover .icon-img-wrap {
+      outline: 1px dotted white;
+      background: rgba(0,0,128,0.4);
+    }
+    .icon img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+    .icon .label {
+      color: #fff;
+      font-size: 10px;
+      text-align: center;
+      margin-top: 3px;
+      text-shadow: 1px 1px 2px #000, -1px 0 2px #000;
+      line-height: 1.25;
+      word-wrap: break-word;
+      max-width: 80px;
+    }
+
+    /* ── TASKBAR ── */
+    .taskbar {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 28px;
+      background: #c0c0c0;
+      border-top: 1px solid #fff;
+      box-shadow: inset 0 1px 0 #fff;
+      display: flex;
+      align-items: center;
+      padding: 2px 3px;
+      gap: 3px;
+      z-index: 500;
+    }
+
+    .start-btn {
+      height: 22px;
+      padding: 0 8px 0 5px;
+      background: #c0c0c0;
+      border: none;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .start-btn:active, .start-btn.pressed {
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #fff,
+                  inset 2px 2px 0 #808080, inset -2px -2px 0 #dfdfdf;
+      padding-top: 1px;
+    }
+
+    .win-flag {
+      width: 16px; height: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1px;
+    }
+    .win-flag div:nth-child(1) { background: #f00; }
+    .win-flag div:nth-child(2) { background: #0a0; }
+    .win-flag div:nth-child(3) { background: #00f; }
+    .win-flag div:nth-child(4) { background: #fa0; }
+
+    .tb-divider {
+      width: 2px; height: 20px;
+      border-left: 1px solid #808080;
+      border-right: 1px solid #fff;
+      margin: 0 1px;
+    }
+
+    .clock {
+      margin-left: auto;
+      padding: 0 8px;
+      height: 22px;
+      box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #fff;
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    /* ── START MENU ── */
+    .start-menu {
+      display: none;
+      position: fixed;
+      bottom: 28px; left: 2px;
+      width: 200px;
+      background: #c0c0c0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      z-index: 600;
+    }
+    .start-menu.open { display: block; }
+
+    .sm-sidebar {
+      position: absolute;
+      left: 0; top: 0;
+      width: 22px; height: 100%;
+      background: linear-gradient(to top, #808080, #c0c0c0);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 8px;
+    }
+    .sm-sidebar span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 1px #000;
+      letter-spacing: 2px;
+    }
+
+    .sm-items { margin-left: 22px; padding: 4px 0; }
+
+    .sm-item {
+      padding: 5px 16px 5px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .sm-item:hover { background: #000080; color: #fff; }
+
+    .sm-sep {
+      height: 1px;
+      background: #808080;
+      box-shadow: 0 1px 0 #fff;
+      margin: 3px 6px;
+    }
+
+    /* ── WIN95 WINDOW ── */
+    .win95 {
+      display: none;
+      position: fixed;
+      top: 50px; left: 80px;
+      width: 520px;
+      background: #c0c0c0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      z-index: 700;
+    }
+    .win95.open { display: block; }
+
+    .win95-tb {
+      background: linear-gradient(90deg, #000080, #1084d0);
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .win95-tb-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .win95-icon-small {
+      width: 14px; height: 14px;
+      object-fit: contain;
+    }
+    .win95-title {
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .win95-btns { display: flex; gap: 2px; }
+
+    .win95-btn {
+      width: 16px; height: 14px;
+      background: #c0c0c0;
+      border: none;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      cursor: pointer;
+      font-size: 8px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .win95-btn:active {
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #fff;
+    }
+
+    .win95-body { padding: 6px; }
+
+    .win95-img-frame {
+      background: #fff;
+      border: 1px solid #808080;
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #dfdfdf;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+
+    .win95-img {
+      max-width: 490px;
+      max-height: 58vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── CRUMB AREA ── */
+    .crumb-area {
+      display: none;
+      padding: 8px 6px 4px;
+      border-top: 1px solid #808080;
+      background: #c0c0c0;
+    }
+    .crumb-area.visible { display: block; }
+
+    .crumb-memory {
+      font-size: 11px;
+      font-style: italic;
+      color: #000080;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .crumb-hint {
+      font-size: 10px;
+      color: #444;
+      letter-spacing: 1px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+    /* ── FINAL PAYOFF WINDOW ── */
+    .final-win {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 460px;
+      background: #c0c0c0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      z-index: 800;
+    }
+    .final-win.open { display: block; }
+
+    .final-tb {
+      background: linear-gradient(90deg, #000080, #1084d0);
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .final-title { color: #fff; font-size: 11px; font-weight: bold; }
+
+    .final-body {
+      padding: 28px 32px 24px;
+      text-align: center;
+    }
+
+    .final-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 18px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-quote {
+      font-size: 14px;
+      font-style: italic;
+      color: #000080;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .final-sub {
+      font-size: 10px;
+      color: #666;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .final-close {
+      display: block;
+      margin: 18px auto 0;
+      padding: 4px 22px;
+      background: #c0c0c0;
+      border: none;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    /* ── SHUTDOWN ── */
+    .shutdown-dlg {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 290px;
+      background: #c0c0c0;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      z-index: 950;
+    }
+    .shutdown-dlg.open { display: block; }
+    .sd-tb {
+      background: linear-gradient(90deg, #000080, #1084d0);
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sd-title { color: #fff; font-size: 11px; font-weight: bold; }
+    .sd-body { padding: 18px 20px 14px; }
+    .sd-body p { font-size: 11px; margin-bottom: 10px; }
+    .sd-body .sd-quote {
+      color: #000080;
+      font-style: italic;
+      font-size: 11px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .sd-btns { display: flex; gap: 8px; justify-content: center; }
+    .sd-btn {
+      padding: 4px 18px;
+      background: #c0c0c0;
+      border: none;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff,
+                  inset -2px -2px 0 #808080, inset 2px 2px 0 #dfdfdf;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .close-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 590;
+    }
+    .close-overlay.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- BOOT -->
+  <div class="boot" id="boot" onclick="enterDesktop()">
+    <h1>Icons of the Past</h1>
+    <p class="sub">a liminal desktop</p>
+    <div class="boot-bar-wrap"><div class="boot-bar"></div></div>
+    <p class="boot-click">click anywhere to continue</p>
+  </div>
+
+  <!-- DESKTOP -->
+  <div class="desktop" id="desktop" style="display:none;">
+
+    <!-- ROW 1 -->
+    <div class="icon" style="left:28px;top:20px;" onclick="openWin('1.png','rufus.wav')"><div class="icon-img-wrap"><img src="1.png"></div><span class="label">rufus.wav</span></div>
+    <div class="icon" style="left:180px;top:26px;" onclick="openWin('2.png','home_for_xmas')"><div class="icon-img-wrap"><img src="2.png"></div><span class="label">home_for_xmas</span></div>
+    <div class="icon" style="left:332px;top:18px;" onclick="openWin('3.png','blackkeys.wav')"><div class="icon-img-wrap"><img src="3.png"></div><span class="label">blackkeys.wav</span></div>
+    <div class="icon" style="left:484px;top:24px;" onclick="openWin('4.png','nsync_book')"><div class="icon-img-wrap"><img src="4.png"></div><span class="label">nsync_book</span></div>
+    <div class="icon" style="left:636px;top:20px;" onclick="openWin('5.png','nsync_stickers')"><div class="icon-img-wrap"><img src="5.png"></div><span class="label">nsync_stickers</span></div>
+    <div class="icon" style="left:788px;top:26px;" onclick="openWin('6.png','intern_badge')"><div class="icon-img-wrap"><img src="6.png"></div><span class="label">intern_badge</span></div>
+    <div class="icon" style="left:940px;top:18px;" onclick="openWin('7.png','checkout_11am')"><div class="icon-img-wrap"><img src="7.png"></div><span class="label">checkout_11am</span></div>
+    <div class="icon" style="left:1092px;top:24px;" onclick="openWin('8.png','opus_40')"><div class="icon-img-wrap"><img src="8.png"></div><span class="label">opus_40</span></div>
+
+    <!-- ROW 2 -->
+    <div class="icon" style="left:54px;top:155px;" onclick="openWin('9.png','full_of_shit.txt')"><div class="icon-img-wrap"><img src="9.png"></div><span class="label">full_of_shit.txt</span></div>
+    <div class="icon" style="left:206px;top:161px;" onclick="openWin('10.png','11.24.20','wedding')"><div class="icon-img-wrap"><img src="10.png"></div><span class="label">11.24.20</span></div>
+    <div class="icon" style="left:358px;top:153px;" onclick="openWin('11.png','pheebs')"><div class="icon-img-wrap"><img src="11.png"></div><span class="label">pheebs</span></div>
+    <div class="icon" style="left:510px;top:159px;" onclick="openWin('12.png','feminist_cbk')"><div class="icon-img-wrap"><img src="12.png"></div><span class="label">feminist_cbk</span></div>
+    <div class="icon" style="left:662px;top:154px;" onclick="openWin('13.png','dallas_aug25')"><div class="icon-img-wrap"><img src="13.png"></div><span class="label">dallas_aug25</span></div>
+    <div class="icon" style="left:814px;top:161px;" onclick="openWin('14.png','home_is_toronto')"><div class="icon-img-wrap"><img src="14.png"></div><span class="label">home_is_toronto</span></div>
+    <div class="icon" style="left:966px;top:153px;" onclick="openWin('15.png','spamilton')"><div class="icon-img-wrap"><img src="15.png"></div><span class="label">spamilton</span></div>
+    <div class="icon" style="left:1118px;top:159px;" onclick="openWin('16.png','furby.exe')"><div class="icon-img-wrap"><img src="16.png"></div><span class="label">furby.exe</span></div>
+
+    <!-- ROW 3 -->
+    <div class="icon" style="left:28px;top:290px;" onclick="openWin('17.png','victory_candy')"><div class="icon-img-wrap"><img src="17.png"></div><span class="label">victory_candy</span></div>
+    <div class="icon" style="left:180px;top:296px;" onclick="openWin('18.png','the_box')"><div class="icon-img-wrap"><img src="18.png"></div><span class="label">the_box</span></div>
+    <div class="icon" style="left:332px;top:288px;" onclick="openWin('19.png','pebbles_doll')"><div class="icon-img-wrap"><img src="19.png"></div><span class="label">pebbles_doll</span></div>
+    <div class="icon" style="left:484px;top:294px;" onclick="openWin('20.png','good_wishes','goodwishes')"><div class="icon-img-wrap"><img src="20.png"></div><span class="label">good_wishes</span></div>
+    <div class="icon" style="left:636px;top:289px;" onclick="openWin('21.png','bodega_cats')"><div class="icon-img-wrap"><img src="21.png"></div><span class="label">bodega_cats</span></div>
+    <div class="icon" style="left:788px;top:295px;" onclick="openWin('22.png','colorado_map')"><div class="icon-img-wrap"><img src="22.png"></div><span class="label">colorado_map</span></div>
+    <div class="icon" style="left:940px;top:288px;" onclick="openWin('23.png','grumpy_bear')"><div class="icon-img-wrap"><img src="23.png"></div><span class="label">grumpy_bear</span></div>
+    <div class="icon" style="left:1092px;top:294px;" onclick="openWin('24.png','ding_ding_ding')"><div class="icon-img-wrap"><img src="24.png"></div><span class="label">ding_ding_ding</span></div>
+
+    <!-- ROW 4 -->
+    <div class="icon" style="left:54px;top:425px;" onclick="openWin('25.png','i_am_gay.txt')"><div class="icon-img-wrap"><img src="25.png"></div><span class="label">i_am_gay.txt</span></div>
+    <div class="icon" style="left:206px;top:431px;" onclick="openWin('26.png','Mrs_June_1933','june1933')"><div class="icon-img-wrap"><img src="26.png"></div><span class="label">Mrs_June_1933</span></div>
+    <div class="icon" style="left:358px;top:423px;" onclick="openWin('27.png','mean_girls_tix')"><div class="icon-img-wrap"><img src="27.png"></div><span class="label">mean_girls_tix</span></div>
+    <div class="icon" style="left:510px;top:429px;" onclick="openWin('28.png','fix_it_felix')"><div class="icon-img-wrap"><img src="28.png"></div><span class="label">fix_it_felix</span></div>
+    <div class="icon" style="left:662px;top:424px;" onclick="openWin('29.png','katy_p_no17','cubby')"><div class="icon-img-wrap"><img src="29.png"></div><span class="label">katy_p_no17</span></div>
+    <div class="icon" style="left:814px;top:430px;" onclick="openWin('30.png','spy_book.doc')"><div class="icon-img-wrap"><img src="30.png"></div><span class="label">spy_book.doc</span></div>
+    <div class="icon" style="left:966px;top:423px;" onclick="openWin('31.png','cookie_form')"><div class="icon-img-wrap"><img src="31.png"></div><span class="label">cookie_form</span></div>
+    <div class="icon" style="left:1118px;top:429px;" onclick="openWin('32.png','stone_soup','nana')"><div class="icon-img-wrap"><img src="32.png"></div><span class="label">stone_soup</span></div>
+
+  </div>
+
+  <!-- TASKBAR -->
+  <div class="taskbar" id="taskbar" style="display:none;">
+    <button class="start-btn" id="startBtn" onclick="toggleStart()">
+      <div class="win-flag"><div></div><div></div><div></div><div></div></div>
+      Start
+    </button>
+    <div class="tb-divider"></div>
+    <span class="clock" id="clock"></span>
+  </div>
+
+  <!-- START MENU -->
+  <div class="start-menu" id="startMenu">
+    <div class="sm-sidebar"><span>Icons of the Past</span></div>
+    <div class="sm-items">
+      <div class="sm-item" onclick="closeStart()">📁 &nbsp;Icons of the Past</div>
+      <div class="sm-sep"></div>
+      <div class="sm-item" onclick="shutDown()">⏻ &nbsp;Shut Down...</div>
+    </div>
+  </div>
+
+  <!-- MAIN WINDOW -->
+  <div class="win95" id="mainWin">
+    <div class="win95-tb">
+      <div class="win95-tb-left">
+        <img class="win95-icon-small" id="winIcon" src="">
+        <span class="win95-title" id="winTitle">file</span>
+      </div>
+      <div class="win95-btns">
+        <button class="win95-btn">_</button>
+        <button class="win95-btn">□</button>
+        <button class="win95-btn" onclick="closeWin()">✕</button>
+      </div>
+    </div>
+    <div class="win95-body">
+      <div class="win95-img-frame">
+        <img class="win95-img" id="winImg" src="">
+      </div>
+    </div>
+    <div class="crumb-area" id="crumbArea">
+      <div class="crumb-memory" id="crumbMemory"></div>
+      <div class="crumb-hint" id="crumbHint"></div>
+    </div>
+  </div>
+
+  <!-- FINAL PAYOFF -->
+  <div class="final-win" id="finalWin">
+    <div class="final-tb">
+      <span class="final-title">good_wishes</span>
+      <button class="win95-btn" onclick="closeFinal()">✕</button>
+    </div>
+    <div class="final-body">
+      <img class="final-img" src="20.png">
+      <p class="final-quote">
+        "You are all the pieces of yourself<br>
+        you have gathered along the way."
+      </p>
+      <p class="final-sub">icons of the past</p>
+      <button class="final-close" onclick="closeFinal()">close</button>
+    </div>
+  </div>
+
+  <!-- SHUTDOWN -->
+  <div class="shutdown-dlg" id="shutdownDlg">
+    <div class="sd-tb">
+      <span class="sd-title">Shut Down Windows</span>
+      <button class="win95-btn" onclick="closeShutdown()">✕</button>
+    </div>
+    <div class="sd-body">
+      <p>Are you sure you want to shut down?</p>
+      <p class="sd-quote">"It's okay to close the window.<br>You carry the icons with you."</p>
+      <div class="sd-btns">
+        <button class="sd-btn" onclick="closeShutdown()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="close-overlay" id="closeOverlay" onclick="closeStart()"></div>
+
+  <!-- AUDIO -->
+  <audio id="honk" preload="auto">
+    <source src="https://www.soundjay.com/transportation/sounds/car-horn-1.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="nameAudio" preload="auto">
+    <source src="name.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ── EASTER EGG SEQUENCE ──
+    // Stop 1: cubby (29.png) — katy_p_no17
+    // Stop 2: june1933 (26.png) — Mrs_June_1933
+    // Stop 3: wedding (10.png) — 11.24.20
+    // Stop 4: nana (32.png) — stone_soup
+    // Stop 5: toronto (14.png) — FINAL
+
+    const crumbs = {
+      cubby: {
+        memory: "hoarding started young.",
+        hint: "↳ find where nothing becomes something"
+      },
+      nana: {
+        memory: "she taught you that with the right ingredients, you can make something out of anything.",
+        hint: "↳ find the journey of a name"
+      },
+      june1933: {
+        memory: "we hold versions of the past with us everyday.",
+        hint: "↳ follow your heart and make your own choices"
+      },
+      wedding: {
+        memory: "sewn in decisions of love.",
+        hint: "↳ you are the wallpapered bedroom of your past"
+      }
+    };
+
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours(), m = now.getMinutes().toString().padStart(2,'0');
+      const ap = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      document.getElementById('clock').textContent = h + ':' + m + ' ' + ap;
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+
+    function enterDesktop() {
+      document.getElementById('boot').style.display = 'none';
+      document.getElementById('desktop').style.display = 'block';
+      document.getElementById('taskbar').style.display = 'flex';
+    }
+
+    function openWin(src, title, crumbKey) {
+      closeWin();
+
+      // Bumper sticker honk
+      if (src === '25.png') {
+        try { document.getElementById('honk').play(); } catch(e) {}
+      }
+
+      // Good wishes = final payoff
+      if (crumbKey === 'goodwishes') {
+        document.getElementById('finalWin').classList.add('open');
+        try {
+          const audio = document.getElementById('nameAudio');
+          audio.currentTime = 0;
+          audio.play();
+        } catch(e) {}
+        return;
+      }
+
+      // Regular window
+      document.getElementById('winImg').src = src;
+      document.getElementById('winIcon').src = src;
+      document.getElementById('winTitle').textContent = title;
+      document.getElementById('mainWin').classList.add('open');
+
+      // Crumb
+      const crumbArea = document.getElementById('crumbArea');
+      const crumbMemory = document.getElementById('crumbMemory');
+      const crumbHint = document.getElementById('crumbHint');
+
+      if (crumbKey && crumbs[crumbKey]) {
+        crumbMemory.textContent = crumbs[crumbKey].memory;
+        crumbHint.textContent = crumbs[crumbKey].hint;
+        crumbArea.classList.add('visible');
+      } else {
+        crumbArea.classList.remove('visible');
+      }
+    }
+
+    function closeWin() {
+      document.getElementById('mainWin').classList.remove('open');
+      document.getElementById('crumbArea').classList.remove('visible');
+    }
+
+    function closeFinal() {
+      document.getElementById('finalWin').classList.remove('open');
+      try { document.getElementById('nameAudio').pause(); } catch(e) {}
+    }
+
+    function toggleStart() {
+      const m = document.getElementById('startMenu');
+      const b = document.getElementById('startBtn');
+      const o = document.getElementById('closeOverlay');
+      const open = m.classList.contains('open');
+      if (open) { m.classList.remove('open'); b.classList.remove('pressed'); o.classList.remove('active'); }
+      else { m.classList.add('open'); b.classList.add('pressed'); o.classList.add('active'); }
+    }
+
+    function closeStart() {
+      document.getElementById('startMenu').classList.remove('open');
+      document.getElementById('startBtn').classList.remove('pressed');
+      document.getElementById('closeOverlay').classList.remove('active');
+    }
+
+    function shutDown() {
+      closeStart();
+      document.getElementById('shutdownDlg').classList.add('open');
+    }
+
+    function closeShutdown() {
+      document.getElementById('shutdownDlg').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeWin(); closeFinal(); closeStart(); closeShutdown(); }
+    });
+  </script>
+</body>
+</html>
